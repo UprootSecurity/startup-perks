@@ -242,12 +242,17 @@ const structuredData = {
       <p class="footer-note">
         Created with <span class="footer-heart" aria-hidden="true">&#10084;</span> for founders.
       </p>
-      <a href={repositoryUrl} target="_blank" rel="noopener noreferrer" class="footer-source">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
-          <path d="M12 .5C5.65.5.5 5.66.5 12.03c0 5.1 3.3 9.42 7.88 10.95.58.1.8-.25.8-.56v-2.17c-3.2.7-3.88-1.36-3.88-1.36-.52-1.34-1.28-1.7-1.28-1.7-1.05-.72.08-.7.08-.7 1.16.08 1.78 1.2 1.78 1.2 1.03 1.77 2.7 1.26 3.35.96.1-.75.4-1.26.72-1.55-2.56-.3-5.25-1.29-5.25-5.74 0-1.27.45-2.31 1.2-3.13-.12-.3-.52-1.53.12-3.2 0 0 .98-.31 3.2 1.2a11.06 11.06 0 0 1 5.82 0c2.22-1.52 3.2-1.2 3.2-1.2.64 1.67.24 2.9.12 3.2.75.82 1.2 1.86 1.2 3.13 0 4.46-2.7 5.44-5.27 5.74.41.36.78 1.06.78 2.14v3.18c0 .31.21.67.8.56A11.54 11.54 0 0 0 23.5 12.03C23.5 5.66 18.35.5 12 .5Z"/>
-        </svg>
-        <span>Source on GitHub</span>
-      </a>
+      <div class="footer-actions">
+        <a href="mailto:admin@startup-perks.com" aria-label="Contact for partnerships" class="footer-source" title="Contact Us">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        </a>
+        <a href={repositoryUrl} target="_blank" rel="noopener noreferrer" class="footer-source">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
+            <path d="M12 .5C5.65.5.5 5.66.5 12.03c0 5.1 3.3 9.42 7.88 10.95.58.1.8-.25.8-.56v-2.17c-3.2.7-3.88-1.36-3.88-1.36-.52-1.34-1.28-1.7-1.28-1.7-1.05-.72.08-.7.08-.7 1.16.08 1.78 1.2 1.78 1.2 1.03 1.77 2.7 1.26 3.35.96.1-.75.4-1.26.72-1.55-2.56-.3-5.25-1.29-5.25-5.74 0-1.27.45-2.31 1.2-3.13-.12-.3-.52-1.53.12-3.2 0 0 .98-.31 3.2 1.2a11.06 11.06 0 0 1 5.82 0c2.22-1.52 3.2-1.2 3.2-1.2.64 1.67.24 2.9.12 3.2.75.82 1.2 1.86 1.2 3.13 0 4.46-2.7 5.44-5.27 5.74.41.36.78 1.06.78 2.14v3.18c0 .31.21.67.8.56A11.54 11.54 0 0 0 23.5 12.03C23.5 5.66 18.35.5 12 .5Z"/>
+          </svg>
+          <span>Source on GitHub</span>
+        </a>
+      </div>
     </footer>
 
     <SubmitPerkModal repositoryUrl={repositoryUrl} baseBranch={repositoryBranch} submissionApiUrl={submissionApiUrl} />
@@ -327,6 +332,11 @@ const structuredData = {
           const verifiedAtB = Number(b.dataset.lastVerified || "0");
           const companyA = a.dataset.company || "";
           const companyB = b.dataset.company || "";
+          const exclusiveA = a.dataset.exclusive === "true" ? 1 : 0;
+          const exclusiveB = b.dataset.exclusive === "true" ? 1 : 0;
+
+          // Always sort exclusives first
+          if (exclusiveA !== exclusiveB) return exclusiveB - exclusiveA;
 
           if (mode === "credit-asc") return creditA - creditB;
           if (mode === "recently-verified") return verifiedAtB - verifiedAtA;
@@ -872,7 +882,14 @@ const structuredData = {
     }
     .footer-link,
     .footer-note,
-    .footer-source {
+  .footer-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    justify-self: end;
+  }
+
+  .footer-source {
       justify-self: center;
     }
   }
