@@ -3,6 +3,7 @@ import { getCollection } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PerkCard from "../components/PerkCard.astro";
+import PlaceholderCard from "../components/PlaceholderCard.astro";
 import SubmitPerkModal from "../components/SubmitPerkModal.astro";
 
 const perks = ((await getCollection("perks")) as CollectionEntry<"perks">[])
@@ -225,6 +226,7 @@ const structuredData = {
         <span class="head-col action">Action</span>
       </div>
       <div id="resultsGrid" class="ledger-list">
+        <PlaceholderCard />
         {perks.map((perk: CollectionEntry<"perks">) => <PerkCard perk={perk} />)}
       </div>
     </div>
@@ -352,6 +354,13 @@ const structuredData = {
         cards.forEach((card) => {
           card.style.display = visibleCards.includes(card) ? "grid" : "none";
         });
+
+        const placeholderCard = document.querySelector('.placeholder-row');
+        if (placeholderCard) {
+          const isDefaultState = !query && !verifiedOnly.checked && selectedValues("category").length === 0 && selectedValues("stage").length === 0 && sortSelect.value === "credit-desc";
+          placeholderCard.style.display = isDefaultState ? "" : "none";
+        }
+
         const sortedVisibleCards = sortCards([...visibleCards]);
         sortedVisibleCards.forEach((card) => resultsGrid.append(card));
         emptyState.hidden = visibleCards.length > 0;
