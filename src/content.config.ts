@@ -21,7 +21,6 @@ const perks = defineCollection({
     expiresAt: z.coerce.date().optional(),
     verified: z.boolean().default(false),
     isActive: z.boolean().default(true),
-    isExclusive: z.boolean().default(false),
   }),
 });
 

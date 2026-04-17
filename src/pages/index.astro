@@ -243,7 +243,7 @@ const structuredData = {
         Created with <span class="footer-heart" aria-hidden="true">&#10084;</span> for founders.
       </p>
       <div class="footer-actions">
-        <a href="mailto:admin@startup-perks.com" aria-label="Contact for partnerships" class="footer-source" title="Contact Us">
+        <a href="mailto:admin@startup-perks.com" aria-label="Contact for partnerships" class="footer-icon-link" title="Contact Us">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
         </a>
         <a href={repositoryUrl} target="_blank" rel="noopener noreferrer" class="footer-source">
@@ -332,11 +332,6 @@ const structuredData = {
           const verifiedAtB = Number(b.dataset.lastVerified || "0");
           const companyA = a.dataset.company || "";
           const companyB = b.dataset.company || "";
-          const exclusiveA = a.dataset.exclusive === "true" ? 1 : 0;
-          const exclusiveB = b.dataset.exclusive === "true" ? 1 : 0;
-
-          // Always sort exclusives first
-          if (exclusiveA !== exclusiveB) return exclusiveB - exclusiveA;
 
           if (mode === "credit-asc") return creditA - creditB;
           if (mode === "recently-verified") return verifiedAtB - verifiedAtA;
@@ -855,6 +850,30 @@ const structuredData = {
     outline-offset: 2px;
   }
 
+  .footer-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    justify-self: end;
+  }
+
+  .footer-icon-link {
+    color: var(--muted);
+    transition: color 0.2s ease;
+    display: flex;
+    align-items: center;
+    padding: 0.2rem;
+  }
+
+  .footer-icon-link:hover {
+    color: var(--fg);
+  }
+
+  .footer-icon-link:focus-visible {
+    outline: 2px solid #0f172a;
+    outline-offset: 2px;
+  }
+
   @media (max-width: 1100px) {
     .site-header {
       flex-direction: column;
@@ -882,14 +901,7 @@ const structuredData = {
     }
     .footer-link,
     .footer-note,
-  .footer-actions {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    justify-self: end;
-  }
-
-  .footer-source {
+    .footer-actions {
       justify-self: center;
     }
   }

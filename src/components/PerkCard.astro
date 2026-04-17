@@ -29,17 +29,11 @@ const searchable = [
   data-credit={String(data.creditValueUsd ?? 0)}
   data-company={data.company.toLowerCase()}
   data-last-verified={String(data.lastVerified.getTime())}
-  data-exclusive={String(data.isExclusive)}
 >
   <div class="perk-cell provider">
     <div class="provider-content">
       <span class="co-name">{data.company}</span>
-      {data.isExclusive && (
-        <span class="exclusive-badge" title="Exclusive Community Perk">
-          🌟
-        </span>
-      )}
-      {data.verified && !data.isExclusive && (
+      {data.verified && (
         <span class="verified-badge" title="Verified Registry Entry">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
         </span>
@@ -132,15 +126,6 @@ const searchable = [
     flex-shrink: 0;
     line-height: 1;
     vertical-align: middle;
-  }
-
-  .exclusive-badge {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    line-height: 1;
-    margin-left: 2px;
   }
 
   .entry {
