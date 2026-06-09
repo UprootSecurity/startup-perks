@@ -6,10 +6,12 @@ import SubmitPerkModal from "../../components/SubmitPerkModal.astro";
 
 export async function getStaticPaths() {
   const perks = await getCollection("perks");
-  return perks.map((perk: CollectionEntry<"perks">) => ({
+  return perks
+    .filter((perk: CollectionEntry<"perks">) => perk.data.isActive)
+    .map((perk: CollectionEntry<"perks">) => ({
     params: { slug: perk.id },
     props: { perk },
-  }));
+    }));
 }
 
 interface Props {
