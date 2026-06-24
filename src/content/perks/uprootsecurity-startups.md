@@ -1,7 +1,7 @@
 ---
 company: UprootSecurity
 title: UprootSecurity for Startups
-summary: Automate security achieve compliance as a byproduct. Fastest path to SOC 2 and ISO 27001 with the least effort.
+summary: Automate security and achieve compliance as a byproduct. Fastest path to SOC 2 and ISO 27001 with the least effort.
 perkType: discount
 amountDisplay: Startup pricing available
 creditValueUsd: 3000
